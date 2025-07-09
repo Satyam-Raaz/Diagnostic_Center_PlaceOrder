@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class BookingServiceImpl implements BookingService{
 	UserRepository userRepo;
 
 	@Override
-	public Booking addBooking(BookingRequest requestBooking,int id) {
+	public Booking addBooking(BookingRequest requestBooking,int id){
 		Booking booking=new Booking();
 		Center center=centerService.getCenterByName(requestBooking.getCenterName());
 		List<Test> tests=center.getTests();
@@ -67,23 +68,48 @@ public class BookingServiceImpl implements BookingService{
 	}
 
 	@Override
-	public List<Booking> getAll() {
-		return  repoBooking.findAll();
-	}
-	
-	@Override
-	public BookingDetails getBooking(int id) {
-		BookingDetails bookingDetails=new BookingDetails();
-		User user=userRepo.findById(id).get();
-		Booking booking=repoBooking.findByUserId(id);
-		bookingDetails.setCenterName(booking.getCenterName());
-		bookingDetails.setTestName(booking.getTestName());
-		bookingDetails.setSlot(booking.getSlot());
-		bookingDetails.setUsername(user.getUsername());
-		bookingDetails.setAddress(user.getAddress());
-		bookingDetails.setContactNo(user.getContactNo());
+	public List<BookingDetails> getAll() {
+		List<BookingDetails> bookingDetails=new ArrayList<>();
+		List<Booking> bookings=repoBooking.findAll();
+		System.out.println("First error");
+		for(Booking booking:bookings) {
+			User user=userRepo.findById(booking.getUser_id()).get();
+			System.out.println(user.getId());
+			BookingDetails bookingDetail=new BookingDetails();
+			bookingDetail.setCenterName(booking.getCenterName());
+			bookingDetail.setTestName(booking.getTestName());
+			bookingDetail.setSlot(booking.getSlot());
+			bookingDetail.setUsername(user.getUsername());
+			bookingDetail.setAddress(user.getAddress());
+			bookingDetail.setContactNo(user.getContactNo());
+			bookingDetails.add(bookingDetail);
+		}
+		System.out.println("Third error");
+
 		return bookingDetails;
 		
 	}
+	
+	@Override
+	public List<BookingDetails> getBooking(int id) {
+		List<BookingDetails> bookingDetails=new ArrayList<>();
+		User user=userRepo.findById(id).get();
+		List<Booking> bookings=repoBooking.findByUserId(id);
+		for(Booking booking:bookings) {
+			BookingDetails bookingDetail=new BookingDetails();
+			bookingDetail.setCenterName(booking.getCenterName());
+			bookingDetail.setTestName(booking.getTestName());
+			bookingDetail.setSlot(booking.getSlot());
+			bookingDetail.setUsername(user.getUsername());
+			bookingDetail.setAddress(user.getAddress());
+			bookingDetail.setContactNo(user.getContactNo());
+			bookingDetails.add(bookingDetail);
+		}
+
+		return bookingDetails;
+		
+	}
+	
+	
 
 }

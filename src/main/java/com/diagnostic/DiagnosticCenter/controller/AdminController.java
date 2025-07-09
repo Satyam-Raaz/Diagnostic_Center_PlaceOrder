@@ -7,13 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.diagnostic.DiagnosticCenter.entity.Booking;
+import com.diagnostic.DiagnosticCenter.dto.BookingDetails;
 import com.diagnostic.DiagnosticCenter.entity.Center;
 import com.diagnostic.DiagnosticCenter.entity.User;
 import com.diagnostic.DiagnosticCenter.service.BookingServiceImpl;
@@ -22,6 +23,7 @@ import com.diagnostic.DiagnosticCenter.service.UserServiceImpl;
 
 @RestController
 @RequestMapping("/diagnostic/admin")
+@CrossOrigin(origins = {"http://localhost:5173"})
 public class AdminController {
 	
 	@Autowired
@@ -68,7 +70,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/getBookinglist")
-	public ResponseEntity<List<Booking>> getAllBookingList(){
+	public ResponseEntity<List<BookingDetails>> getAllBookingList(){
 		return new ResponseEntity<>(bookingService.getAll(),HttpStatus.OK);
 
 	}

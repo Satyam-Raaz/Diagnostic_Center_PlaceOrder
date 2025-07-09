@@ -15,11 +15,15 @@ public class Booking {
 	private String testName;
 	private String centerName;
 	private String Slot;
+
+	
 	public Booking(String testName, String centerName) {
 		super();
 		this.testName = testName;
 		this.centerName = centerName;
 	}
+
+
 	public Booking() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -56,6 +60,7 @@ public class Booking {
 	public void setUser_id(int userId) {
 		this.userId = userId;
 	}
+	
 	@Override
 	public String toString() {
 		return "Booking [id=" + id + ", testName=" + testName + ", centerName=" + centerName + ", Slot=" + Slot + "]";

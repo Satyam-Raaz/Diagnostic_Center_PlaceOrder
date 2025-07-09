@@ -10,6 +10,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,17 +19,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 
 
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
     @Autowired
     private UserDetailsService userDetailsService;
     
     @Autowired
     private JwtFilter jwtFilter;
-    
-
 
     @Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -40,7 +39,8 @@ public class SecurityConfig {
                 httpBasic(Customizer.withDefaults()).
                 sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();**/
     	
-		http.csrf(customizer-> customizer.disable());
+		http.csrf(AbstractHttpConfigurer::disable);
+        http.cors(Customizer.withDefaults());
 		http.authorizeHttpRequests(request-> request
 		          .requestMatchers("/diagnostic/admin/**").hasRole("ADMIN")
 		          .requestMatchers("/diagnostic/user/**").hasAnyRole("ADMIN","USER")
