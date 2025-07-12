@@ -14,13 +14,15 @@ public class Booking {
 	private int userId;
 	private String testName;
 	private String centerName;
+	private String imageUrl;
 	private String Slot;
 
 	
-	public Booking(String testName, String centerName) {
+	public Booking(String testName, String centerName,String imageUrl) {
 		super();
 		this.testName = testName;
 		this.centerName = centerName;
+		this.imageUrl=imageUrl;
 	}
 
 
@@ -61,6 +63,27 @@ public class Booking {
 		this.userId = userId;
 	}
 	
+	
+	public int getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Booking [id=" + id + ", testName=" + testName + ", centerName=" + centerName + ", Slot=" + Slot + "]";

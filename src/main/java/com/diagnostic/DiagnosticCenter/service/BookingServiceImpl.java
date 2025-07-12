@@ -58,6 +58,7 @@ public class BookingServiceImpl implements BookingService{
 			String dateTimeStr = dateTime.format(dateTimeFormatter);
 			booking.setTestName(requestBooking.getTestName());
 			booking.setCenterName(requestBooking.getCenterName());
+			booking.setImageUrl(requestBooking.getImageUrl());
 			booking.setSlot(dateTimeStr);
 			booking.setUser_id(id);
 			return repoBooking.save(booking);

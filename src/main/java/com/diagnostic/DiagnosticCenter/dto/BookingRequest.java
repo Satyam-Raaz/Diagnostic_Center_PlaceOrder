@@ -4,14 +4,18 @@ package com.diagnostic.DiagnosticCenter.dto;
 public class BookingRequest {
 	private String testName;
 	private String centerName;
+	private String imageUrl;
+
 
 	
 	
 
-	public BookingRequest(String testName, String centerName ) {
+	public BookingRequest(String testName, String centerName ,String imageUrl) {
 		super();
 		this.testName = testName;
 		this.centerName = centerName;
+		this.imageUrl=imageUrl;
+
 	}
 	
 
@@ -33,10 +37,16 @@ public class BookingRequest {
 		this.centerName = centerName;
 	}
 	
-	
-	
-	
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 
 
 
